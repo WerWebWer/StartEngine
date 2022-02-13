@@ -13,12 +13,14 @@
     <!-- region SendSMS -->
     <string name="sendsms_send_sms">Try send SMS to %s with %s</string>
     <string name="sendsms_error">Error. Any problems</string>
-    <string name="sendsms_data_invalid">Data is not valid. Please double check number and code</string>
+    <string name="sendsms_data_invalid">Data is not valid. Please double check</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <!-- endregion SendSMS -->
 
     <!-- region Number Dialog Invalid -->
-    <string name="dialog_invalid_title"></string>
+    <string name="dialog_invalid_title">Data is not valid</string>
+    <string name="dialog_invalid_with_args_text">Have same problem with: %s</string>
+    <string name="dialog_invalid_without_args_text">Same problem. Please double check properties</string>
     <string name="dialog_invalid_ok">Ok</string>
     <string name="dialog_invalid_setting">Setting</string>
     <!-- endregion Number Dialog Invalid -->
@@ -41,4 +43,10 @@
     <string name="key_auto_read">auto_read</string>
     <string name="key_start_engine">start_engine</string>
     <!-- endregion Keys of preference -->
+
+    <!-- region Settings menu -->
+    <string name="settings_menu_status">Check</string>
+    <string name="settings_menu_status_ok">Data is valid</string>
+    <string name="settings_menu_status_error">Error</string>
+    <!-- endregion Settings menu -->
 </resources>

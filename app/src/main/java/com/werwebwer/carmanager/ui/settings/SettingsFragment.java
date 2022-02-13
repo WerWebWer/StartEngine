@@ -10,8 +10,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.werwebwer.carmanager.R;
+import com.werwebwer.carmanager.utils.PreferenceUtils;
+import com.werwebwer.carmanager.utils.TextUtils;
+
+import static com.werwebwer.carmanager.utils.Constants.DIALOG_TAG;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
+
 
     @NonNull
     public static SettingsFragment newInstance() {
@@ -24,17 +29,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle bundle) {
-        super.onCreate(bundle);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        openDialog();
+    }
+
+    private void openDialog() {
+        PreferenceUtils preferenceUtils = new PreferenceUtils(getContext());
+        if (TextUtils.isDataValid(preferenceUtils.getNumber(), preferenceUtils.getCodeStartEngine()))
+            return;
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
 
-        // Create and show the dialog.
-        DialogFragment newFragment = DataInvalidFragment.newInstance("name");
-        newFragment.show(ft, "dialog");
+        DialogFragment newFragment = DataInvalidFragment.newInstance();
+        newFragment.show(ft, DIALOG_TAG);
     }
 }

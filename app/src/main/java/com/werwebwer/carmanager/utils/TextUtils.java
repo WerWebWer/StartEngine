@@ -19,6 +19,13 @@ public class TextUtils {
         return code.matches("^[0-9]*$");
     }
 
+    public static boolean isDataValid(
+            @Nullable String number,
+            @Nullable String code
+    ) {
+        return isNumber(number) && isCode(code);
+    }
+
     @NonNull
     public static String clearNumber(@NonNull String number) {
         String result = number.replace("+", "");

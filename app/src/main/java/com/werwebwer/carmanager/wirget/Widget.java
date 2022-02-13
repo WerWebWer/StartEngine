@@ -14,7 +14,7 @@ import com.werwebwer.carmanager.utils.SendSMS;
 
 public class Widget extends AppWidgetProvider {
 
-    public static String ACTION_WIDGET_RECEIVER = "SendSMS";
+    public static String ACTION_WIDGET_RECEIVER = "SendSMS_widget";
 
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
