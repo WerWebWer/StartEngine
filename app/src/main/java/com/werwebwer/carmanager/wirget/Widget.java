@@ -19,9 +19,8 @@ public class Widget extends AppWidgetProvider {
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         final String action = intent.getAction();
-        if (action.equals(ACTION_WIDGET_RECEIVER)) {
+        if (action.equals(ACTION_WIDGET_RECEIVER))
             SendSMS.send(context);
-        }
         super.onReceive(context, intent);
     }
 

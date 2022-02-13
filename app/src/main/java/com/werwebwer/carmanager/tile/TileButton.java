@@ -12,24 +12,20 @@ import static android.service.quicksettings.Tile.STATE_ACTIVE;
 import static android.service.quicksettings.Tile.STATE_INACTIVE;
 
 public class TileButton extends TileService {
-
+    
     @Override
     public void onClick() {
         super.onClick();
-        changeState();
+        changeState(STATE_ACTIVE);
 
         SendSMS.send(getApplicationContext());
 
-        new Handler(Looper.getMainLooper()).postDelayed(this::changeState, Constants.TIME_DELAY);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> changeState(STATE_INACTIVE), Constants.TIME_DELAY);
     }
 
-    private void changeState() {
+    private void changeState(int state) {
         Tile tile = getQsTile();
-        if (tile.getState() == STATE_ACTIVE) {
-            tile.setState(STATE_INACTIVE);
-        } else {
-            tile.setState(STATE_ACTIVE);
-        }
+        tile.setState(state);
         tile.updateTile();
     }
 }

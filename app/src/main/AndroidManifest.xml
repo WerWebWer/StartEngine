@@ -35,10 +35,10 @@
 
         <service
             android:name=".tile.TileButton"
-            android:description="@string/start_engine_desc"
+            android:description="@string/tile_start_engine_desc"
             android:enabled="true"
             android:icon="@drawable/auto"
-            android:label="@string/start_engine"
+            android:label="@string/tile_start_engine"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
