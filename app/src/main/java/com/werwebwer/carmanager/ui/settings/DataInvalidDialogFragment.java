@@ -18,11 +18,13 @@ import com.werwebwer.carmanager.utils.TextUtils;
 
 import static com.werwebwer.carmanager.utils.Constants.ARGS;
 
-public class DataInvalidFragment extends DialogFragment implements View.OnClickListener {
+public class DataInvalidDialogFragment extends DialogFragment implements View.OnClickListener {
+
+    private PreferenceUtils mPreferenceUtils;
 
     @NonNull
-    static DataInvalidFragment newInstance() {
-        return new DataInvalidFragment();
+    static DataInvalidDialogFragment newInstance() {
+        return new DataInvalidDialogFragment();
     }
 
     @Override
@@ -38,13 +40,11 @@ public class DataInvalidFragment extends DialogFragment implements View.OnClickL
     ) {
         getDialog().setTitle(getContext().getString(R.string.dialog_invalid_title));
         View v = inflater.inflate(R.layout.invalid_data_dialog, container, false);
-
+        mPreferenceUtils = new PreferenceUtils(getContext());
 
         TextView tv = v.findViewById(R.id.dialog_invalid_text);
         v.findViewById(R.id.dialog_invalid_button_ok).setOnClickListener(this);
-        if (!TextUtils.isDataValid(
-                new PreferenceUtils(getContext()).getNumber(),
-                new PreferenceUtils(getContext()).getCodeStartEngine()))
+        if (!mPreferenceUtils.isValidData())
             tv.setText(getContext().getString(R.string.dialog_invalid_with_args_text, getInvalidProperties(getContext())));
         else
             tv.setText(getContext().getString(R.string.dialog_invalid_without_args_text));
@@ -54,10 +54,9 @@ public class DataInvalidFragment extends DialogFragment implements View.OnClickL
     @NonNull
     private String getInvalidProperties(@NonNull Context context) {
         String result = "";
-        PreferenceUtils preferenceUtils = new PreferenceUtils(context);
-        if(!TextUtils.isNumber(preferenceUtils.getNumber()))
+        if(!mPreferenceUtils.isNumberValid())
             result = result + ARGS[0] + ", ";
-        if(!TextUtils.isCode(preferenceUtils.getCodeStartEngine()))
+        if(!mPreferenceUtils.isCodeStartEngineValid())
             result = result + ARGS[1] + ", ";
         result = result.substring(0, result.length() - 2);
         return result;

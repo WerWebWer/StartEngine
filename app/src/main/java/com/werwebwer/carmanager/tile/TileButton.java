@@ -18,8 +18,9 @@ public class TileButton extends TileService {
         super.onClick();
         changeState(STATE_ACTIVE);
 
-        SendSMS.send(getApplicationContext());
-
+        if (!SendSMS.send(getApplicationContext())) {
+            showDialog(new TileDialog(getApplicationContext()));
+        }
         new Handler(Looper.getMainLooper()).postDelayed(() -> changeState(STATE_INACTIVE), Constants.TIME_DELAY);
     }
 

@@ -35,8 +35,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void openDialog() {
-        PreferenceUtils preferenceUtils = new PreferenceUtils(getContext());
-        if (TextUtils.isDataValid(preferenceUtils.getNumber(), preferenceUtils.getCodeStartEngine()))
+        if (new PreferenceUtils(getContext()).isValidData())
             return;
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -46,7 +45,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         ft.addToBackStack(null);
 
-        DialogFragment newFragment = DataInvalidFragment.newInstance();
+        DialogFragment newFragment = DataInvalidDialogFragment.newInstance();
         newFragment.show(ft, DIALOG_TAG);
     }
 }

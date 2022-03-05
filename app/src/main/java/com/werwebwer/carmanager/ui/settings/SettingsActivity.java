@@ -1,6 +1,5 @@
 package com.werwebwer.carmanager.ui.settings;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +18,6 @@ import static com.werwebwer.carmanager.utils.Constants.TIME_DELAY_MENU;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Context mContext;
     private PreferenceUtils mPreferenceUtils;
 
     @Override
@@ -32,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
                     .replace(R.id.settings, SettingsFragment.newInstance())
                     .commit();
         }
-        mContext = getApplicationContext();
         mPreferenceUtils = new PreferenceUtils(getApplicationContext());
     }
 
@@ -50,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                if (TextUtils.isDataValid(mPreferenceUtils.getNumber(), mPreferenceUtils.getCodeStartEngine())) {
+                if (mPreferenceUtils.isValidData()) {
                     item.setTitle(getApplicationContext().getString(R.string.settings_menu_status_ok));
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.settings_menu_status_error));
@@ -68,8 +65,8 @@ public class SettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.settings_menu_status) {
-            if (!TextUtils.isDataValid(mPreferenceUtils.getNumber(), mPreferenceUtils.getCodeStartEngine())) {
-                new DataInvalidFragment().show(getSupportFragmentManager(), DIALOG_TAG);
+            if (!mPreferenceUtils.isValidData()) {
+                new DataInvalidDialogFragment().show(getSupportFragmentManager(), DIALOG_TAG);
             }
         }
         return super.onOptionsItemSelected(item);

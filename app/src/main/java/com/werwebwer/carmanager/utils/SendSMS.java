@@ -12,7 +12,7 @@ import com.werwebwer.carmanager.ui.settings.SettingsActivity;
 
 public class SendSMS {
 
-    public static void send(@NonNull Context context) {
+    public static boolean send(@NonNull Context context) {
         PreferenceUtils preferenceUtils = new PreferenceUtils(context);
         String number = preferenceUtils.getNumber();
         String startEngine = preferenceUtils.getCodeStartEngine();
@@ -20,16 +20,18 @@ public class SendSMS {
         if (!TextUtils.isDataValid(number, startEngine)) {
             Toast.makeText(context, context.getString(R.string.sendsms_data_invalid), Toast.LENGTH_LONG).show();
             openSettings(context);
-            return;
+            return false;
         }
 
         try {
             Toast.makeText(context, context.getString(R.string.sendsms_send_sms, number, startEngine), Toast.LENGTH_LONG).show();
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, startEngine, null, null);
+            return true;
         } catch (Exception e) {
             Toast.makeText(context, context.getString(R.string.sendsms_error), Toast.LENGTH_LONG).show();
             openSettings(context);
+            return false;
         }
     }
 

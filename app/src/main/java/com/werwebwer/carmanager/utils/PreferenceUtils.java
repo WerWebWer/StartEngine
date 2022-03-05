@@ -31,4 +31,12 @@ public class PreferenceUtils {
     public boolean isValidData() {
         return TextUtils.isDataValid(getNumber(), getCodeStartEngine());
     }
+
+    public boolean isNumberValid() {
+        return TextUtils.isNumber(getNumber());
+    }
+
+    public boolean isCodeStartEngineValid() {
+        return TextUtils.isCode(getCodeStartEngine());
+    }
 }
